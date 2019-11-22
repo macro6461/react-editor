@@ -10,7 +10,7 @@ export default class JavaScript extends Component{
   render(){
       return (
           <div className="sectionContainer">
-              <h2  class="box-title">JavaScript</h2>
+              <h2  className="box-title">JavaScript</h2>
              <TextArea/>
           </div>
       )

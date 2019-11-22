@@ -8,16 +8,14 @@ import TextArea from './TextArea.js';
 
 class HTML extends Component{
 
-    onChange = (event) => {
-        debugger
-        var html = event.target.value
+    onChange = (html) => {
         this.props.addHtml(html)
     }
 
     render(){
         return (
             <div className="sectionContainer">
-                <h2 class="box-title">HTML</h2>
+                <h2 className="box-title">HTML</h2>
                 <TextArea onChange={this.onChange}/>
             </div>
         )

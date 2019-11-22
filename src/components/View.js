@@ -25,7 +25,6 @@ class View extends Component{
     }
 
     render(){
-        debugger
         return (<div className="view">
                 {ReactHtmlParser(this.state.html)}
         </div>)
@@ -34,8 +33,6 @@ class View extends Component{
 
 
 const mapStateToProps = (state) => {
-
-    debugger
 
     return {
       html: state.html

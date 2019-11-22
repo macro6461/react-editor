@@ -11,7 +11,7 @@ export default class CSS extends Component{
     render() {
         return (
             <div className="sectionContainer">
-                <h2  class="box-title">CSS</h2>
+                <h2  className="box-title">CSS</h2>
                 <TextArea/>
             </div>
         )
