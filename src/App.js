@@ -8,6 +8,7 @@ import View from './components/View.js'
 function App() {
   return (
     <div className="App">
+    <h1>React Editor</h1>
       <div className='container'>
         <HTML/>
         <JavaScript/>

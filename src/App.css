@@ -23,7 +23,7 @@
 
 .container {
   min-width: 600px;
-   display: inline-block;
+  display: inline-block;
   border: solid 1px cadetBlue;
   /*grid-template-columns: 300px 300px;*/
 }
