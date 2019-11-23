@@ -14,7 +14,7 @@ class HTML extends Component{
 
     render(){
         return (
-            <div className="sectionContainer html">
+            <div className="sectionContainer html" style={{width: this.props.width + '%'}}>
                 <div>
                 <h2 className="box-title">HTML</h2>
                 <TextArea onChange={this.onChange}/>

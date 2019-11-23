@@ -25,7 +25,7 @@ class View extends Component{
     }
 
     render(){
-        return (<div className="view">
+        return (<div className="view" style={{height: this.props.height}}>
                 {ReactHtmlParser(this.state.html)}
         </div>)
     }

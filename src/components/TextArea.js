@@ -5,7 +5,7 @@ import './../App.css'
 
 const { TextArea } = Input;
 
-const Textarea = (props) =>{
+const Textarea = (props) => {
 
         const checkTab = (event) =>{
                 HTMLTextAreaElement.prototype.getCaretPosition = function () { //return the caret position of the textarea
@@ -71,7 +71,7 @@ const Textarea = (props) =>{
         };
 
 
-        return (<TextArea className="innerBox" onChange={checkTab} style={{width: 100 + '%'}}>
+        return (<TextArea className="innerBox" onChange={checkTab} style={{width: props.width + '%'}}>
         </TextArea>);
 };
 

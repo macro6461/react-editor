@@ -7,12 +7,16 @@ export default class JavaScript extends Component{
 
     };
 
+    onChange = (js) => {
+        console.log(js)
+    }
+
   render(){
       return (
-          <div className="sectionContainer js">
+          <div className="sectionContainer js" style={{width: this.props.width +'%'}}>
               <div>
               <h2  className="box-title">JavaScript</h2>
-             <TextArea/>
+             <TextArea onChange={this.onChange}/>
               </div>
           </div>
       )
