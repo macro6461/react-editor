@@ -10,9 +10,11 @@ function App() {
     <div className="App">
     <h1>React Editor</h1>
       <div className='container'>
+        <div className='topContainer'>
         <HTML/>
         <JavaScript/>
         <CSS/>
+        </div>
         <View/>
       </div>
     </div>

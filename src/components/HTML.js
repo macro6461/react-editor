@@ -14,9 +14,11 @@ class HTML extends Component{
 
     render(){
         return (
-            <div className="sectionContainer">
+            <div className="sectionContainer html">
+                <div>
                 <h2 className="box-title">HTML</h2>
                 <TextArea onChange={this.onChange}/>
+                </div>
             </div>
         )
     }

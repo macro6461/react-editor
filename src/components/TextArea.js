@@ -1,7 +1,11 @@
 import React, {Component} from 'react'
+import "antd/dist/antd.css";
+import { Input } from 'antd';
 import './../App.css'
 
-const TextArea = (props) =>{
+const { TextArea } = Input;
+
+const Textarea = (props) =>{
 
         const checkTab = (event) =>{
                 HTMLTextAreaElement.prototype.getCaretPosition = function () { //return the caret position of the textarea
@@ -62,13 +66,13 @@ const TextArea = (props) =>{
                                 textarea.setCaretPosition(newCaretPosition);
                             }
                         } 
-                    }
+                    };
                     props.onChange(textarea.value)
-        }
+        };
 
 
-        return (<textarea className="innerBox" onChange={checkTab}>
-        </textarea>);
+        return (<TextArea className="innerBox" onChange={checkTab} style={{width: 100 + '%'}}>
+        </TextArea>);
 };
 
-export default TextArea;
+export default Textarea;
