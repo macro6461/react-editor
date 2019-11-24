@@ -17,15 +17,23 @@ class View extends Component{
     }
 
     componentDidUpdate = (prevProps, prevState) =>{
-        if (this.props.html !==prevProps.html){
+        if (this.props.html !== prevProps.html){
             this.setState({
                 html: this.props.html
             })
-        }
+        } 
     }
 
     render(){
+
+        console.log(this.state.height)
+        
         return (<div className="view" style={{height: this.props.height}}>
+                <div className="vertical-dragger" 
+                onMouseDown={this.props.onMouseDown} 
+                onMouseUp={this.props.onMouseUp}
+                onMouseMove={this.props.onChangeHeight}
+                />
                 {ReactHtmlParser(this.state.html)}
         </div>)
     }

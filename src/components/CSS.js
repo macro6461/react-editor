@@ -16,7 +16,7 @@ export default class CSS extends Component{
     render() {
         return (
             <div className="sectionContainer css" style={{width: this.props.width +'%'}}> 
-                <div>
+                <div className="innerSectionContainer">
                 <h2  className="box-title">CSS</h2>
                 <TextArea onChange={this.onChange}/>
                 </div>

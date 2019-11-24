@@ -12,23 +12,35 @@
 .topContainer{
   display: flex; 
   margin: auto;
-  height: 300px; 
-  border-bottom: solid 1px cadetBlue;
+  height: 300px;
 
 }
 
 .innerBox{
-    width: 100% !important;
-    height: 86%!important;
-    min-width: 0px !important;
-    padding: 5px;
-    overflow-y: auto;
-    resize: none;
-    box-sizing: border-box !important;
-    border: solid 1px cadetBlue!important;
-    border-top: none !important;
-    border-radius: 0px !important;
-    min-height: 0px !important;
+  width: 100% !important;
+  height: auto;
+  min-width: 0px !important;
+  padding: 3px;
+  overflow-y: auto;
+  resize: none;
+  border: solid 1px cadetBlue!important;
+  border-top: none;
+  border-bottom: none;
+  position: absolute;
+  bottom: 0px;
+  top: 42px;
+}
+
+.innerBox > textarea{
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  border: none;
+  resize: none;
+}
+
+.innerBox > textarea:focus {
+  outline: none;
 }
 
 .view{
@@ -37,6 +49,7 @@
   overflow: auto;
   border: solid 1px cadetBlue;
   border-top: none;
+  position: relative;
 }
 
 .box-title{
@@ -54,24 +67,46 @@
   position: relative;
 }
 
-.sectionContainer.html > div > .innerBox{
+.sectionContainer.html > .innerSectionContainer > .innerBox{
   border-right: solid 0px transparent !important;
 }
 
-.sectionContainer.html > div > .box-title{
+.sectionContainer.html > .innerSectionContainer > .box-title{
   border-right: solid 0px transparent !important;
 }
 
-.sectionContainer.js > div > .innerBox{
+.sectionContainer.js > .innerSectionContainer > .innerBox{
   border-right: solid 0px transparent !important;
 }
 
-.sectionContainer.js > div > .box-title{
+.sectionContainer.js > .innerSectionContainer > .box-title{
   border-right: solid 0px transparent !important;
 }
 
-.sectionContainer > div{
+.sectionContainer > .innerSectionContainer{
   width: 100%;
   height: 100%;
 }
 
+.horizontal-dragger{
+  height: 100%;
+  width: 10px;
+  background-color: transparent;
+  display: inline-flex;
+  position: absolute;
+  top: 0px;
+  cursor: ew-resize;
+  z-index: 3;
+}
+
+.vertical-dragger{
+  height: 10px;
+    width: 100%;
+    background-color: transparent;
+    display: inline-flex;
+    position: absolute;
+    top: -5px;
+    cursor: ns-resize;
+    z-index: 3;
+    left: 0px;
+}

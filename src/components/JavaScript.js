@@ -14,10 +14,12 @@ export default class JavaScript extends Component{
   render(){
       return (
           <div className="sectionContainer js" style={{width: this.props.width +'%'}}>
-              <div>
-              <h2  className="box-title">JavaScript</h2>
-             <TextArea onChange={this.onChange}/>
-              </div>
+            <div className="innerSectionContainer">
+            <div className="horizontal-dragger" style={{left: -5}}/>
+                <h2  className="box-title">JavaScript</h2>
+                <TextArea onChange={this.onChange}/>
+                <div className="horizontal-dragger" style={{right: -5}}/>
+            </div>
           </div>
       )
   }

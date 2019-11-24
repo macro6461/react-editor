@@ -71,8 +71,8 @@ const Textarea = (props) => {
         };
 
 
-        return (<TextArea className="innerBox" onChange={checkTab} style={{width: props.width + '%'}}>
-        </TextArea>);
+        return (<div className="innerBox"><textarea onChange={checkTab} style={{width: props.width + '%'}} >
+        </textarea></div>);
 };
 
 export default Textarea;
