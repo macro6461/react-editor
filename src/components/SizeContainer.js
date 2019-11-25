@@ -13,7 +13,10 @@ export default class SizeContainer extends Component {
         viewHeight: 300,
         topContainerHeight: 300,
         mouseDown: false,
-        currentDragger: null
+        currentDragger: null,
+        rotateJs: false,
+        rotateHtml: false,
+        rotateCss: false
     }
 
     checkMouseDown = (event) =>{
@@ -83,6 +86,15 @@ export default class SizeContainer extends Component {
             })
     }
 
+    rotate = (type, x) =>{
+        var key = 'rotate' + type
+        if (this.state[key] !== x){
+            var obj = {}
+            obj[key] = x
+            this.setState(obj)
+        }
+    }
+
     onWidthChange = (event, y) =>{
         
         var topContainer = document.getElementById('container').children[0]
@@ -103,6 +115,24 @@ export default class SizeContainer extends Component {
         var jsWidthPx = js.offsetWidth + dX
         var htmlWidthPx = totalWidth - (jsWidthPx + css.offsetWidth)
 
+        if (jsWidthPx < 40){
+            var diff = 40 - jsWidthPx;
+            this.rotate('Js', true)
+            jsWidthPx = 40;
+            htmlWidthPx = htmlWidthPx - diff;
+        } else {
+            this.rotate('Js', false)
+        }
+
+        if (htmlWidthPx < 40){
+            this.rotate('Html', true)
+            var diff = 40 - htmlWidthPx;
+            htmlWidthPx = 40;
+            jsWidthPx = jsWidthPx - diff;
+        } else {
+            this.rotate('Html', false)
+        }
+
         var htmlWidth =  Math.round(100*((htmlWidthPx / totalWidth) * 100))/100
         var jsWidth =  Math.round(100*((jsWidthPx / totalWidth) * 100))/100
 
@@ -116,8 +146,26 @@ export default class SizeContainer extends Component {
         
         var dX = (js.offsetLeft + js.offsetWidth) - event.pageX;
 
-        var jsWidthPx = js.offsetWidth - dX
-        var cssWidthPx = totalWidth - (jsWidthPx + html.offsetWidth)
+        var jsWidthPx = (js.offsetWidth - dX) + 10
+        var cssWidthPx = (totalWidth - (jsWidthPx + html.offsetWidth))  + 10
+
+        if (jsWidthPx < 40){
+            this.rotate('Js', true)
+            var diff = 40 - jsWidthPx;
+            jsWidthPx = 40;
+            cssWidthPx = cssWidthPx - diff;
+        } else {
+            this.rotate('Js', false)
+        }
+
+        if (cssWidthPx < 40){
+            this.rotate('Css', true)
+            var diff = 40 - cssWidthPx;
+            cssWidthPx = 40;
+            jsWidthPx = jsWidthPx - diff;
+        } else {
+            this.rotate('Css', false)
+        }
 
         var cssWidth =  Math.round(100*((cssWidthPx / totalWidth) * 100))/100
         var jsWidth =  Math.round(100*((jsWidthPx / totalWidth) * 100))/100
@@ -137,9 +185,9 @@ export default class SizeContainer extends Component {
             <div className='topContainer' 
             style={{height: this.state.topContainerHeight}}
             >
-                <HTML width={this.state.htmlWidth}/>
-                <JavaScript width={this.state.jsWidth}/>
-                <CSS width={this.state.cssWidth}/>
+                <HTML width={this.state.htmlWidth} rotateHtml={this.state.rotateHtml}/>
+                <JavaScript width={this.state.jsWidth} rotateJs={this.state.rotateJs}/>
+                <CSS width={this.state.cssWidth} rotateCss={this.state.rotateCss}/>
             </div>
             <View height={this.state.viewHeight} 
             />

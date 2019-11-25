@@ -13,10 +13,13 @@ class HTML extends Component{
     }
 
     render(){
+        var transform = this.props.rotateHtml ? 'rotate(90deg)' : 'rotate(0deg)' 
         return (
             <div className="sectionContainer html" style={{width: this.props.width + '%'}}>
                 <div className="innerSectionContainer">
-                <h2 className="box-title">HTML</h2>
+                <div className='box-title-container'>
+                <h2  className="box-title" style={{transform}}>HTML</h2>
+                </div>
                 <TextArea onChange={this.onChange}/>
                 </div>
             </div>
