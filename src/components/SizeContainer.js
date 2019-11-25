@@ -16,7 +16,8 @@ export default class SizeContainer extends Component {
         currentDragger: null,
         rotateJs: false,
         rotateHtml: false,
-        rotateCss: false
+        rotateCss: false,
+        stateChanged: false
     }
 
     checkMouseDown = (event) =>{
@@ -174,23 +175,56 @@ export default class SizeContainer extends Component {
         })
     }
 
+    resetState = () =>{
+        this.setState({
+            htmlWidth: 33.33,
+            cssWidth: 33.33,
+            jsWidth: 33.33,
+            viewHeight: 325,
+            topContainerHeight: 325,
+            mouseDown: false,
+            currentDragger: null,
+            rotateJs: false,
+            rotateHtml: false,
+            rotateCss: false
+        })   
+    }
+
     render(){
-        return(<div className='container' id="container"
-        onMouseDown={this.checkMouseDown}  
-        onMouseUp={this.onMouseUp} 
-        onMouseMove={this.checkWhichDragger}
-        onMouseLeave={this.onMouseOut}
-        >
-            <div className='topContainer' 
-            style={{height: this.state.topContainerHeight}}
-            >
-                <HTML width={this.state.htmlWidth} rotateHtml={this.state.rotateHtml}/>
-                <JavaScript width={this.state.jsWidth} rotateJs={this.state.rotateJs}/>
-                <CSS width={this.state.cssWidth} rotateCss={this.state.rotateCss}/>
-            </div>
-            <View height={this.state.viewHeight} 
-            />
-      </div>)
+
+        var showButton = false
+
+        if (this.state.viewHeight !== this.state.topContainerHeight 
+            || this.state.htmlWidth !== this.state.cssWidth 
+            || this.state.cssWidth !== this.state.jsWidth
+            || this.state.jsWidth !== this.state.htmlWidth){
+                showButton = true
+        }
+
+        return(
+            <div>
+                <div className='container' id="container"
+                    onMouseDown={this.checkMouseDown}
+                    onMouseUp={this.onMouseUp}
+                    onMouseMove={this.checkWhichDragger}
+                    onMouseLeave={this.onMouseOut}
+                >
+                    <div className='topContainer'
+                        style={{ height: this.state.topContainerHeight }}
+                    >
+                        <HTML width={this.state.htmlWidth} rotateHtml={this.state.rotateHtml} />
+                        <JavaScript width={this.state.jsWidth} rotateJs={this.state.rotateJs} />
+                        <CSS width={this.state.cssWidth} rotateCss={this.state.rotateCss} />
+                    </div>
+                    <View height={this.state.viewHeight}
+                    />
+                </div>
+                {showButton
+                    ? <button onClick={this.resetState} style={{marginTop: 10}}>Reset</button>
+                    : null
+                }
+                  
+            </div>)
     }
 }
 
