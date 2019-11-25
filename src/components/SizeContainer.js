@@ -21,12 +21,39 @@ export default class SizeContainer extends Component {
         })
     }
 
+    onMouseOut = () => {
+        this.setState({
+            mouseDown: false
+        })
+    }
+
     onChangeHeight = (event) => {
         if (this.state.mouseDown){
-            var viewHeight = event.target.parentElement.getBoundingClientRect().height 
-            + (event.clientX - event.target.parentElement.getBoundingClientRect().height)
-           
-            var topContainerHeight = 600 - viewHeight 
+            
+            var dy =  event.pageY - (this.state.topContainerHeight + 60);
+
+            var viewHeight
+
+            if (dy >= this.state.viewHeight){
+                viewHeight = this.state.viewHeight + dy;
+            } else {
+                viewHeight = this.state.viewHeight - dy;
+            } 
+
+                if (viewHeight >= 550){
+                    viewHeight = 550
+                }
+             
+                var topContainerHeight = 600 - viewHeight
+
+                if (topContainerHeight >= 540){
+                    topContainerHeight = 540
+                }
+
+                if (topContainerHeight + viewHeight > 600 || topContainerHeight + viewHeight < 600){
+                    viewHeight = 600 - topContainerHeight
+                }
+
             this.setState({
                 viewHeight,
                 topContainerHeight
@@ -39,7 +66,7 @@ export default class SizeContainer extends Component {
     }
 
     render(){
-        return(<div className='container'>
+        return(<div className='container' onMouseUp={this.onMouseChange}>
             <div className='topContainer' 
             style={{height: this.state.topContainerHeight}}
             >
@@ -50,7 +77,8 @@ export default class SizeContainer extends Component {
             <View height={this.state.viewHeight} 
             onMouseDown={this.onMouseChange} 
             onMouseUp={this.onMouseChange} 
-            onChangeHeight={this.onChangeHeight}/>
+            onChangeHeight={this.onChangeHeight}
+            />
       </div>)
     }
 }
