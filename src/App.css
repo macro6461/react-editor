@@ -92,13 +92,14 @@
 
 .horizontal-dragger{
   height: 100%;
-  width: 10px;
-  background-color: transparent;
-  display: inline-flex;
-  position: absolute;
-  top: 0px;
-  cursor: ew-resize;
-  z-index: 3;
+    width: 10px;
+    background-color: white;
+    display: inline-flex;
+    position: absolute;
+    top: 0px;
+    cursor: ew-resize;
+    z-index: 3;
+    border: solid 1px cadetblue;
 }
 
 .vertical-dragger{

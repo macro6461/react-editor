@@ -15,10 +15,10 @@ export default class JavaScript extends Component{
       return (
           <div className="sectionContainer js" style={{width: this.props.width +'%'}}>
             <div className="innerSectionContainer">
-            <div className="horizontal-dragger" style={{left: -5}}/>
+            <div className="horizontal-dragger" id="leftDragger" style={{left: -5}}/>
                 <h2  className="box-title">JavaScript</h2>
                 <TextArea onChange={this.onChange}/>
-                <div className="horizontal-dragger" style={{right: -5}}/>
+            <div className="horizontal-dragger" id="rightDragger" style={{right: -5}}/>
             </div>
           </div>
       )
