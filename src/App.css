@@ -51,6 +51,7 @@
   border: solid 1px cadetBlue;
   border-top: none;
   position: relative;
+  padding-top: 10px;
 }
 
 .box-title{
@@ -101,7 +102,7 @@
 }
 
 .vertical-dragger{
-  height: 20px;
+  height: 10px;
     width: 100%;
     background-color: transparent;
     border-bottom: solid 1px cadetblue;

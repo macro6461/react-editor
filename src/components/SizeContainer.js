@@ -80,7 +80,12 @@ export default class SizeContainer extends Component {
     }
 
     render(){
-        return(<div className='container' onMouseDown={this.checkMouseDown}  onMouseUp={this.onMouseUp} onMouseMove={this.onChangeHeight}>
+        return(<div className='container' 
+        onMouseDown={this.checkMouseDown}  
+        onMouseUp={this.onMouseUp} 
+        onMouseMove={this.onChangeHeight}
+        onMouseLeave={this.onMouseOut}
+        >
             <div className='topContainer' 
             style={{height: this.state.topContainerHeight}}
             >
