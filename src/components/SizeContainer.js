@@ -15,6 +15,18 @@ export default class SizeContainer extends Component {
         mouseDown: false
     }
 
+    checkMouseDown = (event) =>{
+        if (event.target.id === 'viewDragger'){
+            this.onMouseChange(event)
+        }
+    }
+
+    onMouseUp = () =>{
+        this.setState({
+            mouseDown: false
+        })
+    }
+
     onMouseChange = (event) => {
         this.setState({
             mouseDown: !this.state.mouseDown
@@ -34,11 +46,13 @@ export default class SizeContainer extends Component {
 
             var viewHeight
 
-            if (dy >= this.state.viewHeight){
+            if (event.mousemoveY >= 0){
                 viewHeight = this.state.viewHeight + dy;
             } else {
                 viewHeight = this.state.viewHeight - dy;
             } 
+
+            console.log(event.mousemoveY >= 0)
 
                 if (viewHeight >= 550){
                     viewHeight = 550
@@ -62,11 +76,11 @@ export default class SizeContainer extends Component {
     }
 
     onChangeWidth = (x) => {
-        debugger
+        
     }
 
     render(){
-        return(<div className='container' onMouseUp={this.onMouseChange}>
+        return(<div className='container' onMouseDown={this.checkMouseDown}  onMouseUp={this.onMouseUp} onMouseMove={this.onChangeHeight}>
             <div className='topContainer' 
             style={{height: this.state.topContainerHeight}}
             >
@@ -75,9 +89,6 @@ export default class SizeContainer extends Component {
                 <CSS width={this.state.cssWidth}/>
             </div>
             <View height={this.state.viewHeight} 
-            onMouseDown={this.onMouseChange} 
-            onMouseUp={this.onMouseChange} 
-            onChangeHeight={this.onChangeHeight}
             />
       </div>)
     }

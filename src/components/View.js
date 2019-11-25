@@ -27,11 +27,8 @@ class View extends Component{
     render(){
 
         return (<div className="view" style={{height: this.props.height}}>
-                <div className="vertical-dragger" 
-                onMouseDown={this.props.onMouseDown} 
-                onMouseUp={this.props.onMouseUp}
-                onMouseMove={this.props.onChangeHeight}
-                onMouseLeave={this.props.onMouseOut}
+         <div className="vertical-dragger" 
+                id="viewDragger"
                 />
                 {ReactHtmlParser(this.state.html)}
         </div>)

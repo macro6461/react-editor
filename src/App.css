@@ -101,9 +101,10 @@
 }
 
 .vertical-dragger{
-  height: 10px;
+  height: 20px;
     width: 100%;
     background-color: transparent;
+    border-bottom: solid 1px cadetblue;
     display: inline-flex;
     position: absolute;
     top: 0px;
