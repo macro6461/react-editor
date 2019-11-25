@@ -7,29 +7,29 @@
   width: 90%;
   display: block;
   margin: auto;
-  height: 600px;
+  height: 650px;
 }
 
 .topContainer{
   display: flex; 
   margin: auto;
-  height: 300px;
+  height: 325px;
 
 }
 
 .innerBox{
   width: 100% !important;
-  height: auto;
-  min-width: 0px !important;
-  padding: 3px;
-  overflow-y: auto;
-  resize: none;
-  border: solid 1px cadetBlue!important;
-  border-top: none;
-  border-bottom: none;
-  position: absolute;
-  bottom: 0px;
-  top: 42px;
+    height: auto;
+    min-width: 0px !important;
+    padding: 3px;
+    overflow-y: auto;
+    resize: none;
+    border: solid 1px cadetBlue!important;
+    border-top: none;
+    border-bottom: none;
+    position: absolute;
+    bottom: 0px;
+    top: 46px;
 }
 
 .innerBox > textarea{
@@ -46,7 +46,7 @@
 
 .view{
   width: 99.99%;
-  height: 300px;
+  height: 325px;
   overflow: auto;
   border: solid 1px cadetBlue;
   border-top: none;
@@ -61,12 +61,13 @@
 
 .box-title{
   width: 100%;
-  font-size: 12px;
+  font-size: 14px;
     margin: auto;
     text-align: center;
     padding-top: 12px;
-    padding-bottom: 11px;
+    padding-bottom: 10px;
     transition: transform 0.2s;
+    height: 45px;
 }
 
 .sectionContainer{

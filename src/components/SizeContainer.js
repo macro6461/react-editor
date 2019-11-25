@@ -10,8 +10,8 @@ export default class SizeContainer extends Component {
         htmlWidth: 33.33,
         cssWidth: 33.33,
         jsWidth: 33.33,
-        viewHeight: 300,
-        topContainerHeight: 300,
+        viewHeight: 325,
+        topContainerHeight: 325,
         mouseDown: false,
         currentDragger: null,
         rotateJs: false,
@@ -55,7 +55,6 @@ export default class SizeContainer extends Component {
             } else if (this.state.currentDragger === 'leftDragger' || this.state.currentDragger === 'rightDragger') {
                 var type = this.state.currentDragger.split("Dragger")[0]
                 this.onWidthChange(event, type)
-                // this[`${type}OnChange`](event)
             }
         } 
     }
@@ -70,14 +69,14 @@ export default class SizeContainer extends Component {
                     viewHeight = 550
                 }
              
-                var topContainerHeight = 600 - viewHeight
+                var topContainerHeight = 650 - viewHeight
 
-                if (topContainerHeight >= 540){
-                    topContainerHeight = 540
+                if (topContainerHeight >= 625){
+                    topContainerHeight = 625
                 }
 
-                if (topContainerHeight + viewHeight > 600 || topContainerHeight + viewHeight < 600){
-                    viewHeight = 600 - topContainerHeight
+                if (topContainerHeight + viewHeight > 650 || topContainerHeight + viewHeight < 650){
+                    viewHeight = 650 - topContainerHeight
                 }
 
             this.setState({
