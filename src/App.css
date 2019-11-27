@@ -22,8 +22,6 @@
     height: auto;
     min-width: 0px !important;
     padding: 3px;
-    overflow-y: auto;
-    resize: none;
     border: solid 1px cadetBlue!important;
     border-top: none;
     border-bottom: none;

@@ -3,7 +3,6 @@ import JavaScript from './JavaScript.js'
 import HTML from './HTML.js'
 import CSS from './CSS.js'
 import View from './View.js'
-import { EventEmitter } from 'events';
 
 export default class SizeContainer extends Component {
     state ={
@@ -26,21 +25,21 @@ export default class SizeContainer extends Component {
         || event.target.id === 'rightDragger' ){
             this.onMouseChange(event)
         }
-    }
+    };
 
     onMouseUp = () =>{
         this.setState({
             mouseDown: false,
             currentDragger: null
         })
-    }
+    };
 
     onMouseChange = (event) => {
         this.setState({
             mouseDown: !this.state.mouseDown,
             currentDragger: event.target.id
         })
-    }
+    };
 
     onMouseOut = () => {
         this.setState({
@@ -58,7 +57,7 @@ export default class SizeContainer extends Component {
                 this.onWidthChange(event, type)
             }
         } 
-    }
+    };
 
     onChangeHeight = (event) => {
             
@@ -84,96 +83,132 @@ export default class SizeContainer extends Component {
                 viewHeight,
                 topContainerHeight
             })
-    }
+    };
 
     rotate = (type, x) =>{
-        var key = 'rotate' + type
+        var key = 'rotate' + type;
         if (this.state[key] !== x){
-            var obj = {}
-            obj[key] = x
-            this.setState(obj)
+            var obj = {};
+            obj[key] = x;
+            this.setState(obj);
         }
-    }
+    };
 
-    onWidthChange = (event, y) =>{
+    onWidthChange = (event, y) => {
         
-        var topContainer = document.getElementById('container').children[0]
+        var topContainer = document.getElementById('container').children[0];
 
-        var js = topContainer.children[1]
-        var html = topContainer.children[0]
-        var css = topContainer.children[2]
-        var totalWidth = topContainer.offsetWidth
+        var js = topContainer.children[1];
+        var html = topContainer.children[0];
+        var css = topContainer.children[2];
+        var totalWidth = topContainer.offsetWidth;
 
-        this[`${y}OnChange`](event, js, html, css, totalWidth )
+        this.onDragChange(event, js, html, css, totalWidth, y);
 
-    }
+    };
 
-    leftOnChange = (event, js, html, css, totalWidth) =>{
-
-        var dX = js.offsetLeft - event.pageX;
-
-        var jsWidthPx = js.offsetWidth + dX
-        var htmlWidthPx = totalWidth - (jsWidthPx + css.offsetWidth)
-
-        if (jsWidthPx < 40){
-            var diff = 40 - jsWidthPx;
-            this.rotate('Js', true)
-            jsWidthPx = 40;
-            htmlWidthPx = htmlWidthPx - diff;
-        } else {
-            this.rotate('Js', false)
-        }
+    adjustLeft = (diff, cssWidthPx, jsWidthPx, totalWidth) =>{
+        var htmlWidthPx = totalWidth - (jsWidthPx + cssWidthPx) - diff;
 
         if (htmlWidthPx < 40){
-            this.rotate('Html', true)
-            var diff = 40 - htmlWidthPx;
+            this.rotate('Html', true);
             htmlWidthPx = 40;
-            jsWidthPx = jsWidthPx - diff;
-        } else {
-            this.rotate('Html', false)
         }
 
-        var htmlWidth =  Math.round(100*((htmlWidthPx / totalWidth) * 100))/100
-        var jsWidth =  Math.round(100*((jsWidthPx / totalWidth) * 100))/100
+        var htmlWidth =  Math.round(100*((htmlWidthPx / totalWidth) * 100))/100;
+        var cssWidth =  Math.round(100*((cssWidthPx / totalWidth) * 100))/100;
+        var jsWidth =  Math.round(100*((jsWidthPx / totalWidth) * 100))/100;
 
-        this.setState({
-            htmlWidth, jsWidth
-        })
+        diff = Math.round(((99.99-(htmlWidth+jsWidth+cssWidth)) * 100))/100;
 
-    }
-
-    rightOnChange = (event, js, html, css, totalWidth) =>{
-        
-        var dX = (js.offsetLeft + js.offsetWidth) - event.pageX;
-
-        var jsWidthPx = (js.offsetWidth - dX) + 10
-        var cssWidthPx = (totalWidth - (jsWidthPx + html.offsetWidth))  + 10
-
-        if (jsWidthPx < 40){
-            this.rotate('Js', true)
-            var diff = 40 - jsWidthPx;
-            jsWidthPx = 40;
-            cssWidthPx = cssWidthPx - diff;
-        } else {
-            this.rotate('Js', false)
+        if (diff !== 0 || diff !== -0 ){
+            cssWidth+=diff
         }
+
+        this.setState({htmlWidth, cssWidth})
+    };
+
+    adjustRight = (diff, htmlWidthPx, jsWidthPx, totalWidth)=> {
+
+        var cssWidthPx = totalWidth - (jsWidthPx + htmlWidthPx) - diff;
 
         if (cssWidthPx < 40){
-            this.rotate('Css', true)
-            var diff = 40 - cssWidthPx;
+            this.rotate('Css', true);
             cssWidthPx = 40;
-            jsWidthPx = jsWidthPx - diff;
-        } else {
-            this.rotate('Css', false)
         }
 
-        var cssWidth =  Math.round(100*((cssWidthPx / totalWidth) * 100))/100
-        var jsWidth =  Math.round(100*((jsWidthPx / totalWidth) * 100))/100
+        var htmlWidth =  Math.round(100*((htmlWidthPx / totalWidth) * 100))/100;
+        var cssWidth =  Math.round(100*((cssWidthPx / totalWidth) * 100))/100;
+        var jsWidth =  Math.round(100*((jsWidthPx / totalWidth) * 100))/100;
 
-        this.setState({
-            cssWidth, jsWidth
-        })
-    }
+        diff = Math.round(((99.99-(htmlWidth+jsWidth+cssWidth)) * 100))/100;
+
+        if (diff !== 0 || diff !== -0 ){
+            htmlWidth+=diff
+        }
+
+        this.setState({cssWidth, htmlWidth})
+    };
+
+    onDragChange = (event, js, html, css, totalWidth, type) => {
+
+        var dX = type === 'left' ? js.offsetLeft - event.pageX : (js.offsetLeft + js.offsetWidth) - event.pageX;
+
+        var jsWidthPx = type === 'left' ? js.offsetWidth + dX : js.offsetWidth - dX;
+
+        var cssWidth, htmlWidth, diff;
+
+        var paramPx = type === 'left' ? totalWidth - (jsWidthPx + css.offsetWidth) : totalWidth - (jsWidthPx + html.offsetWidth);
+
+        var arg = type === 'left' ? 'Html' : 'Css';
+
+        if (paramPx < 40){
+            this.rotate(arg, true)
+        } else {
+
+            this.rotate(arg, false);
+
+            var func = type === 'left' ? this.adjustRight :  this.adjustLeft;
+
+            var isAdjusting = false;
+
+            if (jsWidthPx < 40){
+                diff = 40 - jsWidthPx;
+                this.rotate('Js', true);
+                jsWidthPx = 40;
+                paramPx = paramPx - diff;
+                isAdjusting = true;
+                func(diff, paramPx, jsWidthPx, totalWidth);
+            } else {
+                this.rotate('Js', false)
+            }
+
+            var jsWidth =  Math.round(100*((jsWidthPx / totalWidth) * 100))/100;
+
+            if (type === "left"){
+                cssWidth = this.state.cssWidth;
+                htmlWidth = Math.round(100*((paramPx / totalWidth) * 100))/100;
+                this.checkAdjusting(type, isAdjusting, cssWidth, jsWidth, htmlWidth );
+            } else {
+                htmlWidth = this.state.htmlWidth;
+                cssWidth = Math.round(100*((paramPx / totalWidth) * 100))/100;
+                this.checkAdjusting(type, isAdjusting, cssWidth, jsWidth, htmlWidth );
+            }
+
+        }
+    };
+
+    checkAdjusting = (x, y, cssWidth, jsWidth, htmlWidth)=> {
+        if ((y && x === 'left') || (y && x === 'right') ){
+            this.setState({
+                jsWidth
+            })
+        } else {
+            this.setState({
+                cssWidth, jsWidth, htmlWidth
+            })
+        }
+    };
 
     resetState = () =>{
         this.setState({
@@ -188,18 +223,13 @@ export default class SizeContainer extends Component {
             rotateHtml: false,
             rotateCss: false
         })   
-    }
+    };
 
     render(){
 
-        var showButton = false
+        var allSame = this.state.htmlWidth === this.state.cssWidth && this.state.htmlWidth === this.state.jsWidth && this.state.htmlWidth === 33.33;
 
-        if (this.state.viewHeight !== this.state.topContainerHeight 
-            || this.state.htmlWidth !== this.state.cssWidth 
-            || this.state.cssWidth !== this.state.jsWidth
-            || this.state.jsWidth !== this.state.htmlWidth){
-                showButton = true
-        }
+        var showButton = this.state.viewHeight !== this.state.topContainerHeight || !allSame;
 
         return(
             <div>
