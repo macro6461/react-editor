@@ -4,6 +4,19 @@ import HTML from './HTML.js'
 import CSS from './CSS.js'
 import View from './View.js'
 
+const initialState = {
+    htmlWidth: 33.33,
+    cssWidth: 33.33,
+    jsWidth: 33.33,
+    viewHeight: 325,
+    topContainerHeight: 325,
+    mouseDown: false,
+    currentDragger: null,
+    rotateJs: false,
+    rotateHtml: false,
+    rotateCss: false
+};
+
 export default class SizeContainer extends Component {
     state ={
         htmlWidth: 33.33,
@@ -15,8 +28,7 @@ export default class SizeContainer extends Component {
         currentDragger: null,
         rotateJs: false,
         rotateHtml: false,
-        rotateCss: false,
-        stateChanged: false
+        rotateCss: false
     }
 
     checkMouseDown = (event) =>{
@@ -200,18 +212,7 @@ export default class SizeContainer extends Component {
     }
 
     resetState = () =>{
-        this.setState({
-            htmlWidth: 33.33,
-            cssWidth: 33.33,
-            jsWidth: 33.33,
-            viewHeight: 325,
-            topContainerHeight: 325,
-            mouseDown: false,
-            currentDragger: null,
-            rotateJs: false,
-            rotateHtml: false,
-            rotateCss: false
-        })   
+        this.setState(initialState)   
     };
 
     render(){
