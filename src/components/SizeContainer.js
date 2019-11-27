@@ -85,9 +85,10 @@ export default class SizeContainer extends Component {
             })
     };
 
-    rotate = (type, x) =>{
+    rotate = (type, x) => {
+        if (x === true && type === 'Css'){debugger}
         var key = 'rotate' + type;
-        if (this.state[key] !== x){
+        if (this.state[key] !== x) {
             var obj = {};
             obj[key] = x;
             this.setState(obj);
@@ -105,49 +106,6 @@ export default class SizeContainer extends Component {
 
         this.onDragChange(event, js, html, css, totalWidth, y);
 
-    };
-
-    adjustLeft = (diff, cssWidthPx, jsWidthPx, totalWidth) =>{
-        var htmlWidthPx = totalWidth - (jsWidthPx + cssWidthPx) - diff;
-
-        if (htmlWidthPx < 40){
-            this.rotate('Html', true);
-            htmlWidthPx = 40;
-        }
-
-        var htmlWidth =  Math.round(100*((htmlWidthPx / totalWidth) * 100))/100;
-        var cssWidth =  Math.round(100*((cssWidthPx / totalWidth) * 100))/100;
-        var jsWidth =  Math.round(100*((jsWidthPx / totalWidth) * 100))/100;
-
-        diff = Math.round(((99.99-(htmlWidth+jsWidth+cssWidth)) * 100))/100;
-
-        if (diff !== 0 || diff !== -0 ){
-            cssWidth+=diff
-        }
-
-        this.setState({htmlWidth, cssWidth})
-    };
-
-    adjustRight = (diff, htmlWidthPx, jsWidthPx, totalWidth)=> {
-
-        var cssWidthPx = totalWidth - (jsWidthPx + htmlWidthPx) - diff;
-
-        if (cssWidthPx < 40){
-            this.rotate('Css', true);
-            cssWidthPx = 40;
-        }
-
-        var htmlWidth =  Math.round(100*((htmlWidthPx / totalWidth) * 100))/100;
-        var cssWidth =  Math.round(100*((cssWidthPx / totalWidth) * 100))/100;
-        var jsWidth =  Math.round(100*((jsWidthPx / totalWidth) * 100))/100;
-
-        diff = Math.round(((99.99-(htmlWidth+jsWidth+cssWidth)) * 100))/100;
-
-        if (diff !== 0 || diff !== -0 ){
-            htmlWidth+=diff
-        }
-
-        this.setState({cssWidth, htmlWidth})
     };
 
     onDragChange = (event, js, html, css, totalWidth, type) => {
@@ -168,7 +126,7 @@ export default class SizeContainer extends Component {
 
             this.rotate(arg, false);
 
-            var func = type === 'left' ? this.adjustRight :  this.adjustLeft;
+            // var func = type === 'left' ? this.adjustRight :  this.adjustLeft;
 
             var isAdjusting = false;
 
@@ -178,7 +136,7 @@ export default class SizeContainer extends Component {
                 jsWidthPx = 40;
                 paramPx = paramPx - diff;
                 isAdjusting = true;
-                func(diff, paramPx, jsWidthPx, totalWidth);
+                this.adjustWidthIfNeeded(diff, paramPx, jsWidthPx, totalWidth, type);
             } else {
                 this.rotate('Js', false)
             }
@@ -197,6 +155,7 @@ export default class SizeContainer extends Component {
 
         }
     };
+    
 
     checkAdjusting = (x, y, cssWidth, jsWidth, htmlWidth)=> {
         if ((y && x === 'left') || (y && x === 'right') ){
@@ -209,6 +168,36 @@ export default class SizeContainer extends Component {
             })
         }
     };
+
+    adjustWidthIfNeeded = (diff, paramPx, jsWidthPx, totalWidth, type) => {
+
+        var newParamPx = totalWidth - (jsWidthPx + paramPx) - diff;
+
+        if (newParamPx < 40 && type === 'right') {
+            this.rotate('Html', true);
+            newParamPx = 40;
+        } else if (newParamPx < 40 && type === 'left') {
+            debugger
+            this.rotate('Css', true)
+            newParamPx = 40;
+        }
+
+        var dynamicWidth = Math.round(100*((paramPx / totalWidth) * 100))/100;
+        var newDynWidth = Math.round(100*((newParamPx / totalWidth) * 100))/100;
+        var jsWidth =  Math.round(100*((jsWidthPx / totalWidth) * 100))/100;
+
+        diff = Math.round(((99.99-(dynamicWidth+jsWidth+newDynWidth)) * 100))/100;
+
+        if (diff !== 0 || diff !== -0 ){
+            dynamicWidth+=diff
+        }
+
+        var cssWidth = type === 'right' ? dynamicWidth : newDynWidth;
+        var htmlWidth = type === 'right' ? newDynWidth : dynamicWidth;
+
+        this.setState({cssWidth, htmlWidth})
+
+    }
 
     resetState = () =>{
         this.setState({
