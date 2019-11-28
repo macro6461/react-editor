@@ -3,6 +3,7 @@ import JavaScript from './JavaScript.js'
 import HTML from './HTML.js'
 import CSS from './CSS.js'
 import View from './View.js'
+import Buttons from './Buttons.js';
 
 const initialState = {
     htmlWidth: 33.33,
@@ -29,6 +30,14 @@ export default class SizeContainer extends Component {
         rotateJs: false,
         rotateHtml: false,
         rotateCss: false
+    }
+
+    componentDidUpdate = (prevProps, prevState) =>{
+        var {isSizeStateChanged} = this.props;
+        if ((prevProps.isSizeStateChanged !== isSizeStateChanged) && !isSizeStateChanged){
+            debugger
+            this.resetState()
+        }
     }
 
     checkMouseDown = (event) =>{
@@ -95,6 +104,10 @@ export default class SizeContainer extends Component {
                 viewHeight,
                 topContainerHeight
             })
+
+            if (viewHeight !== topContainerHeight){
+                this.props.onChangeSizeTrue()
+            }
     };
 
     rotate = (type, x) => {
@@ -138,8 +151,6 @@ export default class SizeContainer extends Component {
 
             this.rotate(arg, false);
 
-            // var func = type === 'left' ? this.adjustRight :  this.adjustLeft;
-
             var isAdjusting = false;
 
             if (jsWidthPx < 40){
@@ -165,6 +176,12 @@ export default class SizeContainer extends Component {
                 this.checkAdjusting(type, isAdjusting, cssWidth, jsWidth, htmlWidth );
             }
 
+        }
+
+        var allSame = this.state.htmlWidth === this.state.cssWidth && this.state.htmlWidth === this.state.jsWidth && this.state.htmlWidth === 33.33;
+
+        if (!allSame){
+            this.props.onChangeSizeTrue()
         }
     };
     
@@ -217,10 +234,6 @@ export default class SizeContainer extends Component {
 
     render(){
 
-        var allSame = this.state.htmlWidth === this.state.cssWidth && this.state.htmlWidth === this.state.jsWidth && this.state.htmlWidth === 33.33;
-
-        var showButton = this.state.viewHeight !== this.state.topContainerHeight || !allSame;
-
         return(
             <div>
                 <div className='container' id="container"
@@ -239,10 +252,6 @@ export default class SizeContainer extends Component {
                     <View height={this.state.viewHeight}
                     />
                 </div>
-                {showButton
-                    ? <button onClick={this.resetState} style={{marginTop: 10}}>Reset</button>
-                    : null
-                }
                   
             </div>)
     }

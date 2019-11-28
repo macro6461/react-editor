@@ -119,3 +119,80 @@
     z-index: 3;
     left: 0px;
 }
+
+.buttonsContainer{
+  width: 40px;
+  right: 15px;
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+  height: 40px;
+  position: fixed;
+  z-index: 100;
+}
+
+.buttons{
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: navy;
+  color: white;
+  margin: auto;
+  margin-top: 5px;
+  animation: bubbleButtons 0.2s;
+  position: relative;
+}
+
+.buttons .tooltiptext{
+  visibility: hidden;
+  width: 120px;
+  height: 35px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  right: 114%;
+  top: 10%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons .tooltiptext::after {
+  content: "";
+    position: absolute;
+    top: 40%;
+    right: -8%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+    transform: rotate(270deg);
+}
+
+.buttons:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+@keyframes bubbleButtons{
+  0%{
+    transform: scale(0);
+  } 85%{
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
