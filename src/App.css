@@ -25,6 +25,7 @@
 
 .night .buttonsContainer {
    background-color: transparent;
+   transition: right 0.2s;
 }
 
 .night .buttonsContainer > div{
@@ -234,7 +235,7 @@
   border: solid 1px cadetblue;
     border-right: none;
     display: none;
-    left: -28px;
+    left: -30px;
     top: -1px;
     height: 40px;
     position: absolute;
@@ -247,6 +248,9 @@
 }
 
 @media screen and (max-width: 1024px){
+  .night .buttonsContainer{
+    background-color: black;
+  }
   .night .buttonsContainer > div{
     background-color: black;
   }
