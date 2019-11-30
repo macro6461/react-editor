@@ -123,12 +123,15 @@
 .buttonsContainer{
   width: 40px;
   right: 15px;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: auto;
-  margin-top: 10px;
   height: 40px;
-  position: fixed;
   z-index: 100;
+  position: absolute;
+  width: 60px;
+  transition: right 0.2s;
 }
 
 .buttons{
@@ -147,7 +150,7 @@
   position: relative;
 }
 
-.buttons .tooltiptext{
+.buttons .tooltiptext, .buttonsContainerTab .tooltiptext{
   visibility: hidden;
   width: 120px;
   height: 35px;
@@ -169,7 +172,7 @@
   justify-content: center;
 }
 
-.buttons .tooltiptext::after {
+.buttons .tooltiptext::after, .buttonsContainerTab .tooltiptext::after {
   content: "";
     position: absolute;
     top: 40%;
@@ -181,7 +184,7 @@
     transform: rotate(270deg);
 }
 
-.buttons:hover .tooltiptext {
+.buttons:hover .tooltiptext, .buttonsContainerTab:hover .tooltiptext  {
   visibility: visible;
   opacity: 1;
 }
@@ -194,5 +197,33 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+.buttonsContainerTab{
+  border: solid 1px cadetblue;
+    border-right: none;
+    display: none;
+    left: -28px;
+    top: -1px;
+    height: 40px;
+    position: absolute;
+    width: 30px;
+    background-color: white;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+
+}
+
+@media screen and (max-width: 1024px){
+  .buttonsContainer{
+    border: solid 1px cadetblue;
+    min-height: 240px;
+    background-color: white;
+  }
+  .buttonsContainerTab{
+    display: flex;
+    position: absolute;
   }
 }

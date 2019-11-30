@@ -32,14 +32,6 @@ export default class SizeContainer extends Component {
         rotateCss: false
     }
 
-    // componentDidUpdate = (prevProps, prevState) =>{
-    //     var {isSizeStateChanged} = this.props;
-    //     if ((prevProps.isSizeStateChanged !== isSizeStateChanged) && !isSizeStateChanged){
-    //         debugger
-    //         this.resetState()
-    //     }
-    // }
-
     checkMouseDown = (event) =>{
         if (event.target.id === 'viewDragger' 
         || event.target.id === 'leftDragger' 
@@ -107,7 +99,6 @@ export default class SizeContainer extends Component {
     };
 
     rotate = (type, x) => {
-        if (x === true && type === 'Css'){debugger}
         var key = 'rotate' + type;
         if (this.state[key] !== x) {
             var obj = {};
@@ -198,7 +189,6 @@ export default class SizeContainer extends Component {
             this.rotate('Html', true);
             newParamPx = 40;
         } else if (newParamPx < 40 && type === 'left') {
-            debugger
             this.rotate('Css', true)
             newParamPx = 40;
         }
