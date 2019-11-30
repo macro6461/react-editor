@@ -32,13 +32,13 @@ export default class SizeContainer extends Component {
         rotateCss: false
     }
 
-    componentDidUpdate = (prevProps, prevState) =>{
-        var {isSizeStateChanged} = this.props;
-        if ((prevProps.isSizeStateChanged !== isSizeStateChanged) && !isSizeStateChanged){
-            debugger
-            this.resetState()
-        }
-    }
+    // componentDidUpdate = (prevProps, prevState) =>{
+    //     var {isSizeStateChanged} = this.props;
+    //     if ((prevProps.isSizeStateChanged !== isSizeStateChanged) && !isSizeStateChanged){
+    //         debugger
+    //         this.resetState()
+    //     }
+    // }
 
     checkMouseDown = (event) =>{
         if (event.target.id === 'viewDragger' 
@@ -104,10 +104,6 @@ export default class SizeContainer extends Component {
                 viewHeight,
                 topContainerHeight
             })
-
-            if (viewHeight !== topContainerHeight){
-                this.props.onChangeSizeTrue()
-            }
     };
 
     rotate = (type, x) => {
@@ -179,10 +175,6 @@ export default class SizeContainer extends Component {
         }
 
         var allSame = this.state.htmlWidth === this.state.cssWidth && this.state.htmlWidth === this.state.jsWidth && this.state.htmlWidth === 33.33;
-
-        if (!allSame){
-            this.props.onChangeSizeTrue()
-        }
     };
     
 
@@ -234,8 +226,11 @@ export default class SizeContainer extends Component {
 
     render(){
 
+        var allSameHor = this.state.htmlWidth === this.state.cssWidth && this.state.htmlWidth === this.state.jsWidth && this.state.htmlWidth === 33.33
+        var allSameVert = this.state.viewHeight === this.state.topContainerHeight
+
         return(
-            <div>
+            <div style={{display: 'inline-flex', alignItems: 'center', width: 100 + '%'}}>
                 <div className='container' id="container"
                     onMouseDown={this.checkMouseDown}
                     onMouseUp={this.onMouseUp}
@@ -252,6 +247,11 @@ export default class SizeContainer extends Component {
                     <View height={this.state.viewHeight}
                     />
                 </div>
+                <Buttons 
+                    showReset={!allSameHor || !allSameVert}
+                    resetSize={this.resetState}
+                />
+                
                   
             </div>)
     }

@@ -9,27 +9,10 @@ class App extends Component{
     isSizeStateChanged: false
   };
 
-  onChangeSizeTrue = () => {
-    debugger
-    this.setState({
-      isSizeStateChanged: true
-    })
-  };
-
-  resetSize = () => {
-    this.setState({
-      isSizeStateChanged: false
-    })
-  };
-
   render(){
     return (
       <div className="App">
         <h1 style={{height: 40, marginBottom: 10}}>React Editor</h1>
-        <Buttons 
-        showReset={this.state.isSizeStateChanged}
-        resetSize={this.resetSize}
-        />
         <SizeContainer isSizeStateChanged={this.state.isSizeStateChanged} onChangeSizeTrue={this.onChangeSizeTrue}/>
       </div>
     );

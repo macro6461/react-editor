@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaGripHorizontal, FaFileCode } from "react-icons/fa";
+import { FaGripHorizontal, FaFileCode, FaLightbulb } from "react-icons/fa";
 
 const Buttons = (props) =>{
 
@@ -12,7 +12,10 @@ const Buttons = (props) =>{
         <span class="tooltiptext">Download Code</span>
     </div>
     {showReset
-        ? <div className='buttons' onClick={resetSize}><FaGripHorizontal/></div>
+        ? <div className='buttons' onClick={resetSize}>
+        <FaGripHorizontal/>
+        <span class="tooltiptext">Reset Panes</span>
+        </div>
         : null
     }
     </div>
