@@ -19,7 +19,7 @@ const initialState = {
 };
 
 export default class SizeContainer extends Component {
-    state ={
+    state = {
         htmlWidth: 33.33,
         cssWidth: 33.33,
         jsWidth: 33.33,
@@ -216,6 +216,8 @@ export default class SizeContainer extends Component {
 
     render(){
 
+        var mode = this.props.mode
+
         var allSameHor = this.state.htmlWidth === this.state.cssWidth && this.state.htmlWidth === this.state.jsWidth && this.state.htmlWidth === 33.33
         var allSameVert = this.state.viewHeight === this.state.topContainerHeight
 
@@ -230,16 +232,18 @@ export default class SizeContainer extends Component {
                     <div className='topContainer'
                         style={{ height: this.state.topContainerHeight }}
                     >
-                        <HTML width={this.state.htmlWidth} rotateHtml={this.state.rotateHtml} />
-                        <JavaScript width={this.state.jsWidth} rotateJs={this.state.rotateJs} />
-                        <CSS width={this.state.cssWidth} rotateCss={this.state.rotateCss} />
+                        <HTML width={this.state.htmlWidth} rotateHtml={this.state.rotateHtml} mode={mode}/>
+                        <JavaScript width={this.state.jsWidth} rotateJs={this.state.rotateJs} mode={mode} />
+                        <CSS width={this.state.cssWidth} rotateCss={this.state.rotateCss} mode={mode}/>
                     </div>
                     <View height={this.state.viewHeight}
+                    mode={mode}
                     />
                 </div>
                 <Buttons 
                     showReset={!allSameHor || !allSameVert}
                     resetSize={this.resetState}
+                    mode={mode}
                 />
                 
                   

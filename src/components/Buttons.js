@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import { FaGripHorizontal, FaFileCode, FaLightbulb, FaGripLinesVertical } from "react-icons/fa";
+import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { changeMode } from './../actions'
 
 class Buttons extends Component {
 
@@ -48,18 +51,22 @@ class Buttons extends Component {
 
     render(){
 
-        var {showReset, resetSize} = this.props;
+        var {showReset, resetSize, mode, changeMode} = this.props;
 
              return(
             <div className='buttonsContainer' style={{right: this.state.right}}>
             <div className='buttonsContainerTab' onClick={this.changeRight}>
                 <FaGripLinesVertical style={{color: 'cadetBlue', fontSize: 20}}/>
-                <span class="tooltiptext">{this.state.right === -60 ? "Show Options" : "Hide Options"}</span>
+                <span className="tooltiptext">{this.state.right === -60 ? "Show Options" : "Hide Options"}</span>
             </div>
             <div>
+            <div className='buttons' onClick={changeMode}>
+                <FaLightbulb/>
+                <span className="tooltiptext">{mode ? "Day Mode" : "Night Mode"}</span>
+            </div>
             <div className='buttons' onClick={resetSize}>
                 <FaFileCode/>
-                <span class="tooltiptext">Download Code</span>
+                <span className="tooltiptext">Download Code</span>
             </div>
             {showReset
                 ? <div className='buttons' onClick={resetSize}>
@@ -74,4 +81,4 @@ class Buttons extends Component {
     }
 };
 
-export default Buttons;
+export default withRouter(connect(null, {changeMode}) (Buttons))

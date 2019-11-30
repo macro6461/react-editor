@@ -3,4 +3,9 @@ export function addHtml(data){
       type: "ADD_HTML",
       payload: data
     }
+}
+export function changeMode(){
+  return {
+    type: "CHANGE_MODE"
   }
+}
