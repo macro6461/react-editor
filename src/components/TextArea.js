@@ -4,7 +4,8 @@ import './../App.css'
 
 const Textarea = (props) => {
 
-        const checkTab = (event) =>{
+        const checkTab = (event, index) => {
+  
                 HTMLTextAreaElement.prototype.getCaretPosition = function () { //return the caret position of the textarea
                         return this.selectionStart;
                     };
@@ -29,7 +30,7 @@ const Textarea = (props) => {
                         this.focus();
                     };
                     
-                    var textarea = document.getElementsByTagName('textarea')[0];
+                    var textarea = document.getElementsByTagName('textarea')[index];
 
                     var newCaretPosition
                     
@@ -66,7 +67,7 @@ const Textarea = (props) => {
         };
 
 
-        return (<div className="innerBox"><textarea onChange={checkTab} style={{width: props.width + '%'}} >
+        return (<div className="innerBox"><textarea onChange={(event)=>{checkTab(event, props.index)}} style={{width: props.width + '%'}} >
         </textarea></div>);
 };
 

@@ -242,6 +242,7 @@ export default class SizeContainer extends Component {
                     mode={mode}
                     onMouseUp={this.onMouseUp}
                     mouseDown={this.state.mouseDown}
+                    currentDragger={this.state.currentDragger}
                     />
                 </div>
                 <Buttons 

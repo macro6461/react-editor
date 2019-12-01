@@ -24,7 +24,7 @@ export default class JavaScript extends Component{
                     <h2  className="box-title" style={{transform}}>JS</h2>
                 </div>
                 
-                <TextArea onChange={this.onChange}/>
+                <TextArea onChange={this.onChange} index={1}/>
             <div className="horizontal-dragger" id="rightDragger" style={{right: -5}}/>
             </div>
           </div>

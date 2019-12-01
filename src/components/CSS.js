@@ -1,31 +1,29 @@
-import React, {Component} from 'react'
+import React from 'react'
 import './../App.css'
+import { addCss} from '../actions'
+import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux'
 
 import TextArea from './TextArea.js';
 
-export default class CSS extends Component{
-    state = {
-        
-    };
+const CSS = (props) => {
 
-    onChange = (css) => {
-        console.log(css)
+    const onChange = (css) => {
+        props.addCss(css)
     }
 
-
-    render() {
-
-        var transform = this.props.rotateCss ? 'rotate(90deg)' : 'rotate(0deg)' 
+    var transform = props.rotateCss ? 'rotate(90deg)' : 'rotate(0deg)' 
 
         return (
-            <div className="sectionContainer css" style={{width: this.props.width +'%'}}> 
+            <div className="sectionContainer css" style={{width: props.width +'%'}}> 
                 <div className="innerSectionContainer">
                 <div className='box-title-container'>
                 <h2  className="box-title" style={{transform}}>CSS</h2>
                 </div>
-                <TextArea onChange={this.onChange}/>
+                <TextArea onChange={onChange} index={2}/>
                 </div>
             </div>
         )
-    }
 };
+
+export default withRouter(connect(null, {addCss}) (CSS))

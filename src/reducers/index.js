@@ -8,6 +8,9 @@ export default function rootReducer(state={
       case "ADD_HTML":
       var html = action.payload
         return {...state, html}
+      case "ADD_CSS":
+      var css = action.payload
+        return {...state, css}
       case "CHANGE_MODE":
       var mode = !state.mode
         return {...state, mode}

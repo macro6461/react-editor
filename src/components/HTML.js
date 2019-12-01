@@ -20,7 +20,7 @@ class HTML extends Component{
                 <div className='box-title-container'>
                 <h2  className="box-title" style={{transform}}>HTML</h2>
                 </div>
-                <TextArea onChange={this.onChange}/>
+                <TextArea onChange={this.onChange} index={0}/>
                 </div>
             </div>
         )

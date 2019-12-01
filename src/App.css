@@ -36,6 +36,10 @@
   background-color: white;
 }
 
+.night .viewMask{
+  background-color: transparent;
+}
+
 .container {
   width: 90%;
   display: block;
@@ -90,7 +94,10 @@
 }
 
 .viewMask{
-  height: 100%;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  background-color: transparent;
   width: 100%;
 }
 
