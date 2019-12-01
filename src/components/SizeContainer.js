@@ -74,12 +74,12 @@ export default class SizeContainer extends Component {
 
     onChangeHeight = (event) => {
             
-            var dy =  event.pageY - (this.state.topContainerHeight + 60);
+            var dy =  event.pageY - (this.state.topContainerHeight + 50);
 
             var viewHeight = this.state.viewHeight - dy
 
-                if (viewHeight >= 550){
-                    viewHeight = 550
+                if (viewHeight >= 625){
+                    viewHeight = 625
                 }
              
                 var topContainerHeight = 650 - viewHeight

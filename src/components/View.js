@@ -3,6 +3,7 @@ import './../App.css'
 import { connect } from 'react-redux'
 import {withRouter} from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser'; 
+import Iframe from 'react-iframe'
 
 class View extends Component{
 
@@ -14,12 +15,25 @@ class View extends Component{
         this.setState({
             html: this.props.html
         })
+        document.querySelector('iframe')
+        .contentDocument.write(this.state.html)
     }
 
     componentDidUpdate = (prevProps, prevState) =>{
         if (this.props.html !== prevProps.html){
             this.setState({
                 html: this.props.html
+            }, ()=>{
+                var x = document.querySelector('iframe');
+                var y = (x.contentWindow || x.contentDocument);
+                if (y.document){
+                    y = y.document
+                }
+           
+                document.querySelector('iframe').contentDocument.open()
+                document.querySelector('iframe').contentDocument.close()
+
+                document.querySelector('iframe').contentDocument.write(this.state.html)
             })
         } 
     }
@@ -30,7 +44,9 @@ class View extends Component{
          <div className="vertical-dragger" 
                 id="viewDragger"
                 />
-                {ReactHtmlParser(this.state.html)}
+                <iframe frameBorder="0" title='view' style={{zIndex: -1}}>
+                </iframe>
+                {/* {ReactHtmlParser(this.state.html)} */}
         </div>)
     }
 };
