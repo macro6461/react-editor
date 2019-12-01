@@ -76,7 +76,7 @@ export default class SizeContainer extends Component {
 
     onChangeHeight = (event) => {
             
-            var dy =  event.pageY - (this.state.topContainerHeight + 50);
+            var dy =  event.pageY - (this.state.topContainerHeight + 60);
 
             var viewHeight = this.state.viewHeight - dy
 
@@ -240,6 +240,8 @@ export default class SizeContainer extends Component {
                     </div>
                     <View height={this.state.viewHeight}
                     mode={mode}
+                    onMouseUp={this.onMouseUp}
+                    mouseDown={this.state.mouseDown}
                     />
                 </div>
                 <Buttons 

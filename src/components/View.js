@@ -27,29 +27,27 @@ class View extends Component{
             this.setState({
                 html: this.props.html
             }, ()=>{
-                var x = document.querySelector('iframe');
+                var x = document.getElementById('viewIframe')
                 var y = (x.contentWindow || x.contentDocument);
                 if (y.document){
                     y = y.document
                 }
-           
-                document.querySelector('iframe').contentDocument.open()
-                document.querySelector('iframe').contentDocument.close()
-
-                document.querySelector('iframe').contentDocument.write(this.state.html)
+                document.getElementById('viewIframe').contentDocument.open()
+                document.getElementById('viewIframe').contentDocument.close()
+                document.getElementById('viewIframe').contentDocument.write(this.state.html)
             })
         } 
     }
 
     render(){
 
-        return (<div className="view" style={{height: this.props.height}}>
-         <div className="vertical-dragger" 
+        return (<div className="view" style={{height: this.props.height}} onMouseUp={this.props.onMouseUp}>
+        <div className="vertical-dragger" 
                 id="viewDragger"
-                />
-                <Iframe id="viewIframe" frameBorder="0" title='view' style={{zIndex: -100}}>
+        />
+        <div className="viewMask" style={{display: this.props.mouseDown ? 'block' : 'none'}}/>
+                <Iframe id="viewIframe" frameBorder="0" title='view'>
                 </Iframe>
-                {/* {ReactHtmlParser(this.state.html)} */}
         </div>)
     }
 };
@@ -58,7 +56,9 @@ class View extends Component{
 const mapStateToProps = (state) => {
 
     return {
-      html: state.html
+      html: state.html,
+      css: state.css,
+      js: state.js
     }
   }
   

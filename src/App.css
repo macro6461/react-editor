@@ -48,6 +48,7 @@
   display: flex; 
   margin: auto;
   height: 325px;
+  width: 99.99%;
 
 }
 
@@ -86,6 +87,11 @@
   position: relative;
   padding-top: 10px;
   background-color: white;
+}
+
+.viewMask{
+  height: 100%;
+  width: 100%;
 }
 
 .box-title-container{
