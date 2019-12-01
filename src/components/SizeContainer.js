@@ -54,11 +54,13 @@ export default class SizeContainer extends Component {
         })
     };
 
-    onMouseOut = () => {
-        this.setState({
-            mouseDown: false,
-            currentDragger: null
-        })
+    onMouseOut = (event) => {
+        if (event.target.id !== 'viewIframe'){
+            this.setState({
+                mouseDown: false,
+                currentDragger: null
+            })
+        }
     }
 
     checkWhichDragger = (event) =>{

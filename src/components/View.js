@@ -8,18 +8,21 @@ import Iframe from 'react-iframe'
 class View extends Component{
 
     state = {
-        html: ''
+        html: '',
+        css: '',
+        js: ''
     }
 
     componentDidMount = () =>{
         this.setState({
-            html: this.props.html
+            html: this.props.html,
+            css: this.props.css,
+            js: this.props.js
         })
-        document.querySelector('iframe')
-        .contentDocument.write(this.state.html)
+        // document.querySelector('iframe').contentDocument.write(this.state.html)
     }
 
-    componentDidUpdate = (prevProps, prevState) =>{
+    componentDidUpdate = (prevProps, prevState) => {
         if (this.props.html !== prevProps.html){
             this.setState({
                 html: this.props.html
@@ -44,8 +47,8 @@ class View extends Component{
          <div className="vertical-dragger" 
                 id="viewDragger"
                 />
-                <iframe frameBorder="0" title='view' style={{zIndex: -1}}>
-                </iframe>
+                <Iframe id="viewIframe" frameBorder="0" title='view' style={{zIndex: -100}}>
+                </Iframe>
                 {/* {ReactHtmlParser(this.state.html)} */}
         </div>)
     }
