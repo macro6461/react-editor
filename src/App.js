@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
 import SizeContainer from './components/SizeContainer.js'
 import {withRouter} from 'react-router-dom';

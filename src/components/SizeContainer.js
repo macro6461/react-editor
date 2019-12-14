@@ -166,8 +166,6 @@ export default class SizeContainer extends Component {
             }
 
         }
-
-        var allSame = this.state.htmlWidth === this.state.cssWidth && this.state.htmlWidth === this.state.jsWidth && this.state.htmlWidth === 33.33;
     };
     
 

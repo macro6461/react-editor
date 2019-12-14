@@ -2,12 +2,26 @@ export function addHtml(data){
     return {
       type: "ADD_HTML",
       payload: data
-    }
+    };
 }
 
 export function addCss(data){
+    return {
+      type: "ADD_CSS",
+      payload: data
+    };
+}
+
+export function addJs(data){
   return {
-    type: "ADD_CSS",
+    type: "ADD_JS",
+    payload: data
+  }
+}
+
+export function runJs(data){
+  return {
+    type: "RUN_JS",
     payload: data
   }
 }
