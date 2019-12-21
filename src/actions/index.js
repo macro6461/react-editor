@@ -19,13 +19,6 @@ export function addJs(data){
   }
 }
 
-export function runJs(data){
-  return {
-    type: "RUN_JS",
-    payload: data
-  }
-}
-
 export function changeMode(){
   return {
     type: "CHANGE_MODE"

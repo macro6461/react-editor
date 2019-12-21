@@ -1,4 +1,4 @@
-import {compile} from '../util/util.js';
+import {compile, validateHtml} from '../util/util.js';
 
 export default function rootReducer(state={
     html: '',
@@ -10,15 +10,20 @@ export default function rootReducer(state={
     switch(action.type){
       case "ADD_HTML":
         var html = action.payload
-        var compiled = compile(html, state.css)
-        return {...state, html, compiled}
+        // if (validateHtml(html)){
+          var compiled = compile(html, state.css)
+          return {...state, html, compiled}
+        // }  else {
+        //   return {...state}
+        // }
       case "ADD_CSS":
         var css = action.payload
         var compiled = compile(state.html, css)
         return {...state, css, compiled}
       case "ADD_JS":
         var js = action.payload
-        return {...state, js}
+        var compiled = compile(state.html, state.css, js)
+        return {...state, js: js, compiled}
       case "CHANGE_MODE":
         var mode = !state.mode
         return {...state, mode}

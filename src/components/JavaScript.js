@@ -1,39 +1,39 @@
-import React, {Component} from 'react'
+import React, { useState } from "react";
 import './../App.css'
 import TextArea from './TextArea.js';
 import { addJs} from '../actions'
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux'
 
-class JavaScript extends Component{
+const JavaScript = (props) =>{
 
-    state = {
-      
-    };
+  const [js, setJs] = useState();
 
-    onChange = (js) => {
-        this.props.addJs(js)
-    }
+  const onChange = (js) =>{
+    setJs(js)
+  }
 
-    render(){
-
-      var transform = this.props.rotateJs ? 'rotate(90deg)' : 'rotate(0deg)' 
-      
-        return (
-            <div className="sectionContainer js" style={{width: this.props.width +'%'}}>
-              <div className="innerSectionContainer">
-              <div className="horizontal-dragger" id="leftDragger" style={{left: -5}}/>
+  const onSubmit = () =>{
+    props.addJs(js)
+  }
+  
+    var transform = props.rotateJs ? 'rotate(90deg)' : 'rotate(0deg)' 
+    
+      return (
+          <div className="sectionContainer js" style={{width: props.width +'%'}}>
+            <div className="innerSectionContainer">
+            <div className="horizontal-dragger" id="leftDragger" style={{left: -5}}/>
+              
+                <div className='box-title-container'>
+                    <h2  className="box-title" style={{transform}}>JS</h2>
+                </div>
                 
-                  <div className='box-title-container'>
-                      <h2  className="box-title" style={{transform}}>JS</h2>
-                  </div>
-                  
-                  <TextArea onChange={this.onChange} index={1}/>
-              <div className="horizontal-dragger" id="rightDragger" style={{right: -5}}/>
-              </div>
+                <TextArea onChange={onChange} index={1}/>
+            <div className="horizontal-dragger" id="rightDragger" style={{right: -5}}/>
             </div>
-        )
-    }
-  };
+            <div onClick={onSubmit} style={{position: 'absolute', right: 20, bottom: 10, border: 'solid 1px cadetblue', paddingLeft: 5, paddingRight: 5}}>Run</div>
+          </div>
+      )
+};
 
-  export default withRouter(connect(null, {addJs}) (JavaScript))
+export default withRouter(connect(null, {addJs}) (JavaScript))

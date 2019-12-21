@@ -6,19 +6,12 @@ import Iframe from 'react-iframe'
 
 const View = (props) => {
 
-    const [compiled, setCompiled] = useState();
-
     useEffect(() => {
-        setCompiled(props.compiled)
         var x = document.getElementById('viewIframe')
-        var y = (x.contentWindow || x.contentDocument);
-        if (y.document){
-            y = y.document
-        }
-        document.getElementById('viewIframe').contentDocument.open()
-        document.getElementById('viewIframe').contentDocument.close()
-        document.getElementById('viewIframe').contentDocument.write(compiled)
-    }, [props.compiled, compiled])
+        x.contentDocument.open()
+        x.contentDocument.close()
+        x.contentDocument.write(props.compiled)
+    }, [props.compiled])
 
     var revealMask = props.mouseDown && props.currentDragger.includes('view')
 
