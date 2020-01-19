@@ -24,3 +24,10 @@ export function changeMode(){
     type: "CHANGE_MODE"
   }
 }
+
+export function setIsRunning(bool){
+  return {
+    type: "SET_IS_RUNNING",
+    payload: bool
+  }
+}

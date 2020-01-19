@@ -5,6 +5,7 @@ export default function rootReducer(state={
     css: '',
     js: '',
     compiled: '',
+    isRunning: false,
     mode: false
 }, action){
     switch(action.type){
@@ -27,6 +28,8 @@ export default function rootReducer(state={
       case "CHANGE_MODE":
         var mode = !state.mode
         return {...state, mode}
+      case "SET_IS_RUNNING":
+        return {...state, isRunning: action.payload}
       default:
         return state
     }

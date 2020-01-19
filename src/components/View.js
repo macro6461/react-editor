@@ -1,25 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import './../App.css'
 import { connect } from 'react-redux'
 import {withRouter} from 'react-router-dom';
+import { setIsRunning } from '../actions'
 import Iframe from 'react-iframe'
 
 const View = (props) => {
 
+    const {js, compiled} = props
+    const prevAmount = usePrevious({js});
+
     useEffect(() => {
         var x = document.getElementById('viewIframe')
-        reloadJs(x)
-    }, [props.compiled, props.js])
+        if (prevAmount && prevAmount.js !== js) {
+            x.contentWindow.location.reload();
+            withTimeout(x)
+        } else {
+            refreshIframe(x)
+        }
+    }, [compiled, js])
 
-    const reloadJs = (x) =>{
-        x.contentWindow.location.reload();
-        setTimeout(()=>{
-            x.contentDocument.open()
+    const refreshIframe = (x) => {
+        x.contentDocument.open()
         x.contentDocument.close()
-        x.contentDocument.write(props.compiled)
-        }, 1000)
-    
+        x.contentDocument.write(compiled)
     }
+
+    const withTimeout = (x) =>{
+        props.setIsRunning(true);
+        setTimeout(()=>{
+            props.setIsRunning(false)
+            refreshIframe(x)
+        }, 1000)
+    };
 
     var revealMask = props.mouseDown && props.currentDragger.includes('view')
 
@@ -35,19 +48,27 @@ const View = (props) => {
     )
 };
 
+const usePrevious = (js) => {
+
+    const ref = useRef();
+    
+    useEffect(() => {
+      ref.current = js;
+    }, [js]); 
+    
+    return ref.current;
+  }
+
 
 const mapStateToProps = (state) => {
 
     return {
-      html: state.html,
-      css: state.css,
       js: state.js,
-      compiled: state.compiled
+      compiled: state.compiled,
+      isRunning: state.isRunning
     }
+
   }
   
   
-  export default withRouter(connect(mapStateToProps) (View))
-
-
-
+  export default withRouter(connect(mapStateToProps, {setIsRunning}) (View))
