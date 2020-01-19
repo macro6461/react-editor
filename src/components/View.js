@@ -8,10 +8,18 @@ const View = (props) => {
 
     useEffect(() => {
         var x = document.getElementById('viewIframe')
-        x.contentDocument.open()
+        reloadJs(x)
+    }, [props.compiled, props.js])
+
+    const reloadJs = (x) =>{
+        x.contentWindow.location.reload();
+        setTimeout(()=>{
+            x.contentDocument.open()
         x.contentDocument.close()
         x.contentDocument.write(props.compiled)
-    }, [props.compiled])
+        }, 1000)
+    
+    }
 
     var revealMask = props.mouseDown && props.currentDragger.includes('view')
 

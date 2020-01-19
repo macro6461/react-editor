@@ -13,7 +13,7 @@ const JavaScript = (props) =>{
     setJs(js)
   }
 
-  const onSubmit = () =>{
+  const onSubmit = () => {
     props.addJs(js)
   }
   
@@ -31,7 +31,13 @@ const JavaScript = (props) =>{
                 <TextArea onChange={onChange} index={1}/>
             <div className="horizontal-dragger" id="rightDragger" style={{right: -5}}/>
             </div>
-            <div onClick={onSubmit} style={{position: 'absolute', right: 20, bottom: 10, border: 'solid 1px cadetblue', paddingLeft: 5, paddingRight: 5}}>Run</div>
+            {js 
+              ? <div onClick={onSubmit} style={{
+                position: 'absolute', 
+                right: 20, 
+                bottom: 10, border: 'solid 1px cadetblue', backgroundColor: 'white', paddingLeft: 5, paddingRight: 5}}>Run</div>
+              : null
+            }
           </div>
       )
 };
